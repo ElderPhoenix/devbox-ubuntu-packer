@@ -63,17 +63,19 @@
     }
   ],
   "post-processors": [
-    {
-      "output": "builds/{{user `box_basename`}}.{{.Provider}}.box",
-      "type": "vagrant"
-    },
-    {
-      "type": "vagrant-cloud",
-      "only": ["virtualbox-iso"],
-      "access_token": "{{user `atlas_token`}}",
-      "box_tag": "elderphoenix/devbox",
-      "version": "0.0.{{isotime \"20060102150405\"}}"
-    },
+    [
+      {
+        "output": "builds/{{user `box_basename`}}.{{.Provider}}.box",
+        "type": "vagrant"
+      },
+      {
+        "type": "vagrant-cloud",
+        "only": ["virtualbox-iso"],
+        "access_token": "{{user `atlas_token`}}",
+        "box_tag": "elderphoenix/devbox",
+        "version": "0.0.{{isotime \"20060102150405\"}}"
+      }
+    ]
   ],
   "provisioners": [
     {
