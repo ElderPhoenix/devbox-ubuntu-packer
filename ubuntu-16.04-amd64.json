@@ -73,7 +73,8 @@
         "only": ["virtualbox-iso"],
         "access_token": "{{user `atlas_token`}}",
         "box_tag": "elderphoenix/devbox",
-        "version": "0.0.{{isotime \"20060102150405\"}}"
+        "version": "0.0.{{isotime \"20060102150405\"}}",
+        "no_release": "{{user `no_release`}}"
       }
     ]
   ],
@@ -93,13 +94,13 @@
       "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E sh -eux '{{.Path}}'",
       "scripts": [
         "scripts/common/metadata.sh",
-        "scripts/ubuntu/update.sh",
+        "scripts/ubuntu/system/update.sh",
         "scripts/common/sshd.sh",
-        "scripts/ubuntu/networking.sh",
-        "scripts/ubuntu/sudoers.sh",
-        "scripts/ubuntu/vagrant.sh",
+        "scripts/ubuntu/system/networking.sh",
+        "scripts/ubuntu/system/sudoers.sh",
+        "scripts/ubuntu/system/vagrant.sh",
         "scripts/common/virtualbox.sh",
-        "scripts/ubuntu/cleanup.sh",
+        "scripts/ubuntu/system/cleanup.sh",
         "scripts/common/minimize.sh"
       ],
       "type": "shell"
@@ -126,7 +127,8 @@
     "preseed_path": "ubuntu/preseed-hyperv.cfg",
     "template": "ubuntu-16.04-amd64",
     "version": "TIMESTAMP",
-    "atlas_token": ""
+    "atlas_token": "eY02T9LfPVVYOg.atlasv1.iyiS6EZ1nYtyvzeTBvvUslEmXUXPv5RNIuzxwx4kJ0zGp0Zye0zmXEqfOt7fkQwlD0c",
+    "no_release": "true"
   }
 }
 
