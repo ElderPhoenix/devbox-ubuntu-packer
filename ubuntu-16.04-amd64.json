@@ -84,27 +84,42 @@
       "source": "{{user `metadata`}}",
       "type": "file"
     },
+    [
+      {
+        "environment_vars": [
+          "HOME_DIR=/home/vagrant",
+          "http_proxy={{user `http_proxy`}}",
+          "https_proxy={{user `https_proxy`}}",
+          "no_proxy={{user `no_proxy`}}"
+        ],
+        "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E sh -eux '{{.Path}}'",
+        "scripts": [
+          "scripts/common/metadata.sh",
+          "scripts/ubuntu/system/update.sh",
+          "scripts/common/sshd.sh",
+          "scripts/ubuntu/system/networking.sh",
+          "scripts/ubuntu/system/sudoers.sh",
+          "scripts/ubuntu/system/vagrant.sh",
+          "scripts/common/virtualbox.sh",
+          "scripts/ubuntu/system/cleanup.sh",
+          "scripts/common/minimize.sh"
+        ],
+        "type": "shell"
+    },
     {
-      "environment_vars": [
-        "HOME_DIR=/home/vagrant",
-        "http_proxy={{user `http_proxy`}}",
-        "https_proxy={{user `https_proxy`}}",
-        "no_proxy={{user `no_proxy`}}"
-      ],
-      "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E sh -eux '{{.Path}}'",
       "scripts": [
-        "scripts/common/metadata.sh",
-        "scripts/ubuntu/system/update.sh",
-        "scripts/common/sshd.sh",
-        "scripts/ubuntu/system/networking.sh",
-        "scripts/ubuntu/system/sudoers.sh",
-        "scripts/ubuntu/system/vagrant.sh",
-        "scripts/common/virtualbox.sh",
-        "scripts/ubuntu/system/cleanup.sh",
-        "scripts/common/minimize.sh"
+        "scripts/ubuntu/servers/apache.sh"
+        "scripts/ubuntu/servers/nginx.sh"
+      ],
+      "type": "shell"
+    },
+    {
+      "scripts": [
+        "scripts/ubuntu/utilities/git.sh"
       ],
       "type": "shell"
     }
+  ]
   ],
   "variables": {
     "box_basename": "ubuntu-16.04-devbox",
