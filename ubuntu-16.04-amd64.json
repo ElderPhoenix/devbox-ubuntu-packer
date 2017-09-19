@@ -79,47 +79,49 @@
     ]
   ],
   "provisioners": [
-    {
-      "destination": "/tmp/bento-metadata.json",
-      "source": "{{user `metadata`}}",
-      "type": "file"
-    },
-    [
-      {
-        "environment_vars": [
-          "HOME_DIR=/home/vagrant",
-          "http_proxy={{user `http_proxy`}}",
-          "https_proxy={{user `https_proxy`}}",
-          "no_proxy={{user `no_proxy`}}"
-        ],
-        "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E sh -eux '{{.Path}}'",
-        "scripts": [
-          "scripts/common/metadata.sh",
-          "scripts/ubuntu/system/update.sh",
-          "scripts/common/sshd.sh",
-          "scripts/ubuntu/system/networking.sh",
-          "scripts/ubuntu/system/sudoers.sh",
-          "scripts/ubuntu/system/vagrant.sh",
-          "scripts/common/virtualbox.sh",
-          "scripts/ubuntu/system/cleanup.sh",
-          "scripts/common/minimize.sh"
-        ],
-        "type": "shell"
-    },
-    {
-      "scripts": [
-        "scripts/ubuntu/servers/apache.sh"
-        "scripts/ubuntu/servers/nginx.sh"
-      ],
-      "type": "shell"
-    },
-    {
-      "scripts": [
-        "scripts/ubuntu/utilities/git.sh"
-      ],
-      "type": "shell"
-    }
-  ]
+	{
+	  "destination": "/tmp/config",
+	  "source": "{{user `config`}}",
+	  "type": "file"
+	},
+	{
+	  "environment_vars": [
+	  "HOME_DIR=/home/vagrant",
+	  "http_proxy={{user `http_proxy`}}",
+	  "https_proxy={{user `https_proxy`}}",
+	  "no_proxy={{user `no_proxy`}}"
+	],
+	  "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E sh -eux '{{.Path}}'",
+	  "scripts": [
+	    "scripts/ubuntu/system/update.sh"
+	  ],
+	  "type": "shell",
+	  "expect_disconnect": true
+	},
+  {
+    "environment_vars": [
+    "HOME_DIR=/home/vagrant",
+    "http_proxy={{user `http_proxy`}}",
+    "https_proxy={{user `https_proxy`}}",
+    "no_proxy={{user `no_proxy`}}"
+  ],
+    "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E sh -eux '{{.Path}}'",
+    "scripts": [
+      "scripts/common/sshd.sh",
+      "scripts/ubuntu/system/networking.sh",
+      "scripts/ubuntu/system/sudoers.sh",
+      "scripts/ubuntu/system/vagrant.sh",
+      "scripts/common/virtualbox.sh",
+      "scripts/ubuntu/servers/apache.sh",
+      "scripts/ubuntu/servers/nginx.sh",
+      "scripts/ubuntu/db/percona.sh",
+      "scripts/ubuntu/utilities/git.sh",
+      "scripts/ubuntu/system/cleanup.sh",
+      "scripts/common/minimize.sh"
+    ],
+    "type": "shell",
+    "pause_before": "30s"
+  }
   ],
   "variables": {
     "box_basename": "ubuntu-16.04-devbox",
@@ -130,16 +132,16 @@
     "headless": "",
     "http_proxy": "{{env `http_proxy`}}",
     "https_proxy": "{{env `https_proxy`}}",
-    "iso_checksum": "737ae7041212c628de5751d15c3016058b0e833fdc32e7420209b76ca3d0a535",
+    "iso_checksum": "a06cd926f5855d4f21fb4bc9978a35312f815fbda0d0ef7fdc846861f4fc4600",
     "iso_checksum_type": "sha256",
-    "iso_name": "ubuntu-16.04.2-server-amd64.iso",
+    "iso_name": "ubuntu-16.04.3-server-amd64.iso",
     "memory": "4096",
-    "metadata": "floppy/dummy_metadata.json",
+    "config": "config",
     "mirror": "http://releases.ubuntu.com",
-    "mirror_directory": "16.04.2",
+    "mirror_directory": "16.04.3",
     "name": "ubuntu-16.04",
     "no_proxy": "{{env `no_proxy`}}",
-    "preseed_path": "ubuntu/preseed-hyperv.cfg",
+    "preseed_path": "ubuntu/preseed.cfg",
     "template": "ubuntu-16.04-amd64",
     "version": "TIMESTAMP",
     "atlas_token": "eY02T9LfPVVYOg.atlasv1.iyiS6EZ1nYtyvzeTBvvUslEmXUXPv5RNIuzxwx4kJ0zGp0Zye0zmXEqfOt7fkQwlD0c",
